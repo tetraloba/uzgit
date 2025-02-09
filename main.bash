@@ -1,21 +1,22 @@
 #!/bin/bash
+set -e
 
 EXPORT_DIR=all_versions
 
 REPO=research_B
 
-FILE_BASE_PATH=21T314
-FILE_EXT=docx
+FILE_NAME=thesis.docx
 
-TEMP_REPO_DIR=tmp_dir
+TEMP_REPO_DIR=tmp_dir_zip
 
+rm -rf ${TEMP_REPO_DIR}
 mkdir ${TEMP_REPO_DIR}
 cd ${TEMP_REPO_DIR}
 git init
 ls ../${EXPORT_DIR} | while read NEW_FILE; do
-    cp ../${EXPORT_DIR}/${NEW_FILE} ${FILE_BASE_PATH}.${FILE_EXT}
-    git add ${FILE_BASE_PATH}.${FILE_EXT}
+    cp ../${EXPORT_DIR}/${NEW_FILE} ${FILE_NAME}
+    git add ${FILE_NAME}
     git commit -m ${NEW_FILE}
-    du . -d 0 >> size_log.txt
+    du ./.git -d 0 >> size_log.txt
 done
 
